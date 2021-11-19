@@ -8,6 +8,7 @@ interface IListQuizzesDTO {
 
 interface IQuizzesRepository {
   findByTitle(title: string): Promise<Quiz>
+  findById(id: string): Promise<Quiz>
   listDescending(take?: number, skip?: number): Promise<IListQuizzesDTO>
   create({
     title,

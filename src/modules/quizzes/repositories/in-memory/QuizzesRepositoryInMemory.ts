@@ -32,6 +32,10 @@ class QuizzesRepositoryInMemory implements IQuizzesRepository {
     return this.quizzes.find((quiz) => quiz.title === title)
   }
 
+  async findById(id: string): Promise<Quiz> {
+    return this.quizzes.find((quiz) => quiz.id === id)
+  }
+
   async listDescending(take?: number, skip?: number): Promise<IListQuizzesDTO> {
     const quizzes = this.quizzes.sort((a, b) => {
       const aCreateDate = new Date(a.created_at)
