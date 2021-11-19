@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { authenticateRoutes } from './authenticate.routes'
-import { quizzesRoutes } from './quizzzes.routes'
+import { quizzesRoutes } from './quizzes.routes'
 import { usersRoutes } from './users.routes'
 
 const router = Router()
