@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  personality_db:
+    image: postgres
+    container_name: personality_db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=ultrasecretpass
+      - POSTGRES_DB=personality
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: personality
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules/bcrypt/
+    links:
+      - personality_db
+    depends_on:
+      - personality_db 
+
+volumes:
+  pgdata:
+    driver: local
