@@ -40,6 +40,11 @@ class QuizzesRepository implements IQuizzesRepository {
     return quiz
   }
 
+  async findById(id: string): Promise<Quiz> {
+    const quiz = await this.repository.findOne({ id })
+    return quiz
+  }
+
   async listDescending(take?: number, skip?: number): Promise<IListQuizzesDTO> {
     const takeAmount = take || 10
     const skipAmount = skip || 0
