@@ -33,6 +33,14 @@ class QuestionsRepository implements IQuestionsRepository {
     const [questions, count] = await this.repository.findAndCount({ quiz_id })
     return { questions, count }
   }
+
+  async findByQuizWithAnswers(quiz_id: string): Promise<IListQuestionsDTO> {
+    const [questions, count] = await this.repository.findAndCount({
+      where: { quiz_id },
+      relations: ['answers'],
+    })
+    return { questions, count }
+  }
 }
 
 export { QuestionsRepository }
