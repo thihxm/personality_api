@@ -1,4 +1,5 @@
 import { ICreateUserResultDTO } from '@modules/usersResults/dtos/ICreateUserResultDTO'
+import { IListUserResultsDTO } from '@modules/usersResults/dtos/IListUserResultsDTO'
 import { UserResult } from '@modules/usersResults/infra/typeorm/entities/UserResult'
 
 import { IUsersResultsRepository } from '../IUsersResultsRepository'
@@ -28,24 +29,21 @@ class UsersResultsRepositoryInMemory implements IUsersResultsRepository {
     return userResult
   }
 
-  async findByUser(user_id: string): Promise<UserResult[]> {
-    return this.usersResults.filter(
-      (usersResult) => usersResult.user_id === user_id
-    )
-  }
-  async findByResult(result_id: string): Promise<UserResult[]> {
-    return this.usersResults.filter(
-      (usersResult) => usersResult.result_id === result_id
-    )
-  }
   async findByUserResult(
     user_id: string,
     result_id: string
-  ): Promise<UserResult> {
-    return this.usersResults.find(
+  ): Promise<IListUserResultsDTO> {
+    const userResults = this.usersResults.filter(
       (usersResult) =>
         usersResult.user_id === user_id && usersResult.result_id === result_id
     )
+
+    const count = this.usersResults.length
+
+    return {
+      userResults,
+      count,
+    }
   }
 }
 

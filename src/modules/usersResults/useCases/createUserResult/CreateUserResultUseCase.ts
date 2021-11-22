@@ -46,13 +46,13 @@ class CreateUserResultUseCase {
     const userExists = await this.usersRepository.findById(user_id)
 
     if (!userExists) {
-      throw new AppError('User does not exit')
+      throw new AppError('User does not exist')
     }
 
     const resultExists = await this.resultsRepository.findById(result_id)
 
     if (!resultExists) {
-      throw new AppError('Result does not exit')
+      throw new AppError('Result does not exist')
     }
 
     const userResult = await this.usersResultsRepository.create({

@@ -29,7 +29,7 @@ class ListQuestionsUseCase {
     const quizExists = await this.quizzesRepository.findById(quiz_id)
 
     if (!quizExists) {
-      throw new AppError('Quiz does not exit')
+      throw new AppError('Quiz does not exist')
     }
 
     const questionsAndCount = await this.questionsRepository.findByQuiz(quiz_id)

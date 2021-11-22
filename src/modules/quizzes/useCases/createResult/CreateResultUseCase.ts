@@ -48,13 +48,13 @@ class CreateResultUseCase {
     const badgeExists = await this.badgesRepository.findById(badge_id)
 
     if (!badgeExists) {
-      throw new AppError('Badge does not exit')
+      throw new AppError('Badge does not exist')
     }
 
     const quizExists = await this.quizzesRepository.findById(badge_id)
 
     if (!quizExists) {
-      throw new AppError('Quiz does not exit')
+      throw new AppError('Quiz does not exist')
     }
 
     const result = await this.resultsRepository.create({

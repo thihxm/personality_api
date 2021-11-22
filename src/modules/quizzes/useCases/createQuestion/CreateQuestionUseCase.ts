@@ -30,7 +30,7 @@ class CreateQuestionUseCase {
     const quizExists = await this.quizzesRepository.findById(quiz_id)
 
     if (!quizExists) {
-      throw new AppError('Quiz does not exit')
+      throw new AppError('Quiz does not exist')
     }
 
     const question = await this.questionsRepository.create({ label, quiz_id })
