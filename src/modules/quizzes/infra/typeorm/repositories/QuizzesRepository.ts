@@ -1,10 +1,8 @@
 import { getRepository, Repository } from 'typeorm'
 
 import { ICreateQuizDTO } from '@modules/quizzes/dtos/ICreateQuizDTO'
-import {
-  IListQuizzesDTO,
-  IQuizzesRepository,
-} from '@modules/quizzes/repositories/IQuizzesRepository'
+import { IListQuizzesDTO } from '@modules/quizzes/dtos/IListQuizzesDTO'
+import { IQuizzesRepository } from '@modules/quizzes/repositories/IQuizzesRepository'
 
 import { Quiz } from '../entities/Quiz'
 

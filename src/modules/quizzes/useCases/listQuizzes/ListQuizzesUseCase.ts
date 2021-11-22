@@ -1,9 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
-import {
-  IListQuizzesDTO,
-  IQuizzesRepository,
-} from '@modules/quizzes/repositories/IQuizzesRepository'
+import { IListQuizzesDTO } from '@modules/quizzes/dtos/IListQuizzesDTO'
+import { IQuizzesRepository } from '@modules/quizzes/repositories/IQuizzesRepository'
 
 interface IRequest {
   take?: number

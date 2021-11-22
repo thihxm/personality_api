@@ -1,7 +1,8 @@
 import { ICreateQuizDTO } from '@modules/quizzes/dtos/ICreateQuizDTO'
+import { IListQuizzesDTO } from '@modules/quizzes/dtos/IListQuizzesDTO'
 import { Quiz } from '@modules/quizzes/infra/typeorm/entities/Quiz'
 
-import { IListQuizzesDTO, IQuizzesRepository } from '../IQuizzesRepository'
+import { IQuizzesRepository } from '../IQuizzesRepository'
 
 class QuizzesRepositoryInMemory implements IQuizzesRepository {
   quizzes: Quiz[] = []

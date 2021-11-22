@@ -1,10 +1,7 @@
 import { ICreateQuizDTO } from '@modules/quizzes/dtos/ICreateQuizDTO'
 import { Quiz } from '@modules/quizzes/infra/typeorm/entities/Quiz'
 
-interface IListQuizzesDTO {
-  quizzes: Quiz[]
-  count: number
-}
+import { IListQuizzesDTO } from '../dtos/IListQuizzesDTO'
 
 interface IQuizzesRepository {
   findByTitle(title: string): Promise<Quiz>
@@ -23,4 +20,4 @@ interface IQuizzesRepository {
   }: ICreateQuizDTO): Promise<Quiz>
 }
 
-export { IQuizzesRepository, IListQuizzesDTO }
+export { IQuizzesRepository }
