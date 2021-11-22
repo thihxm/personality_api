@@ -55,6 +55,13 @@ class QuizzesRepositoryInMemory implements IQuizzesRepository {
       count,
     }
   }
+
+  async listDescendingWithQuestions(
+    take?: number,
+    skip?: number
+  ): Promise<IListQuizzesDTO> {
+    return this.listDescending(take, skip)
+  }
 }
 
 export { QuizzesRepositoryInMemory }

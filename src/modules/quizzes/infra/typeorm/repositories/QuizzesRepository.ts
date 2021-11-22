@@ -57,6 +57,23 @@ class QuizzesRepository implements IQuizzesRepository {
 
     return { quizzes, count }
   }
+
+  async listDescendingWithQuestions(
+    take?: number,
+    skip?: number
+  ): Promise<IListQuizzesDTO> {
+    const takeAmount = take || 10
+    const skipAmount = skip || 0
+
+    const [quizzes, count] = await this.repository.findAndCount({
+      order: { title: 'DESC' },
+      take: takeAmount,
+      skip: skipAmount,
+      relations: ['questions'],
+    })
+
+    return { quizzes, count }
+  }
 }
 
 export { QuizzesRepository }
