@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm'
 
 import { ICreateBadgeDTO } from '@modules/quizzes/dtos/ICreateBadgeDTO'
+import { IListBadgesDTO } from '@modules/quizzes/dtos/IListBadgesDTO'
 import { IBadgesRepository } from '@modules/quizzes/repositories/IBadgesRepository'
 
 import { Badge } from '../entities/Badge'
@@ -27,6 +28,19 @@ class BadgesRepository implements IBadgesRepository {
   async findById(id: string): Promise<Badge> {
     const badge = await this.repository.findOne({ id })
     return badge
+  }
+
+  async findByResult(result_id: string): Promise<IListBadgesDTO> {
+    const [badges, count] = await this.repository.findAndCount({
+      where: {
+        result: { id: result_id },
+      },
+    })
+
+    return {
+      badges,
+      count,
+    }
   }
 }
 

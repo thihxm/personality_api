@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
@@ -26,7 +27,7 @@ class Result {
   @Column()
   label: string
 
-  @ManyToOne(() => Badge)
+  @OneToOne(() => Badge)
   @JoinColumn({ name: 'badge_id' })
   badge: Badge
 

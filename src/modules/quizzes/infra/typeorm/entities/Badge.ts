@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { v4 as uuidV4 } from 'uuid'
+
+import { Result } from './Result'
 
 @Entity('badges')
 class Badge {
@@ -17,6 +20,9 @@ class Badge {
 
   @Column()
   label: string
+
+  @OneToOne(() => Result, (result) => result.badge)
+  result: Result
 
   @CreateDateColumn()
   created_at: Date
