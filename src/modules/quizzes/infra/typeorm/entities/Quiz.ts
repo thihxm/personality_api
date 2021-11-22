@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { v4 as uuidV4 } from 'uuid'
+
+import { Question } from './Question'
 
 @Entity('quizzes')
 class Quiz {
@@ -26,6 +29,9 @@ class Quiz {
 
   @Column()
   estimatedTimeInMinutes: number
+
+  @OneToMany(() => Question, (question) => question.quiz)
+  questions: Question[]
 
   @CreateDateColumn()
   created_at: Date
