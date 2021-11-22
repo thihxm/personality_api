@@ -7,9 +7,11 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { AnswersRepository } from '@modules/quizzes/infra/typeorm/repositories/AnswersRepository'
 import { QuestionsRepository } from '@modules/quizzes/infra/typeorm/repositories/QuestionsRepository'
 import { QuizzesRepository } from '@modules/quizzes/infra/typeorm/repositories/QuizzesRepository'
+import { ResultsRepository } from '@modules/quizzes/infra/typeorm/repositories/ResultsRepository'
 import { IAnswersRepository } from '@modules/quizzes/repositories/IAnswersRepository'
 import { IQuestionsRepository } from '@modules/quizzes/repositories/IQuestionsRepository'
 import { IQuizzesRepository } from '@modules/quizzes/repositories/IQuizzesRepository'
+import { IResultsRepository } from '@modules/quizzes/repositories/IResultsRepository'
 
 container.registerSingleton<IQuizzesRepository>(
   'QuizzesRepository',
@@ -24,6 +26,11 @@ container.registerSingleton<IQuestionsRepository>(
 container.registerSingleton<IAnswersRepository>(
   'AnswersRepository',
   AnswersRepository
+)
+
+container.registerSingleton<IResultsRepository>(
+  'ResultsRepository',
+  ResultsRepository
 )
 
 container.registerSingleton<IUsersRepository>(
