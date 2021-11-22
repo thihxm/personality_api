@@ -4,6 +4,7 @@ import { Result } from '../infra/typeorm/entities/Result'
 interface IResultsRepository {
   findById(id: string): Promise<Result>
   findByQuiz(quiz_id: string): Promise<Result[]>
+  findByCode(code: string): Promise<Result>
   create({
     id,
     code,

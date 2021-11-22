@@ -37,6 +37,10 @@ class ResultsRepositoryInMemory implements IResultsRepository {
   async findByQuiz(quiz_id: string): Promise<Result[]> {
     return this.results.filter((result) => result.quiz_id === quiz_id)
   }
+
+  async findByCode(code: string): Promise<Result> {
+    return this.results.find((result) => result.code === code)
+  }
 }
 
 export { ResultsRepositoryInMemory }

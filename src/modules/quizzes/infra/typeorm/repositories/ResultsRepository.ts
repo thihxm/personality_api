@@ -43,6 +43,11 @@ class ResultsRepository implements IResultsRepository {
     const results = await this.repository.find({ quiz_id })
     return results
   }
+
+  async findByCode(code: string): Promise<Result> {
+    const result = await this.repository.findOne({ code })
+    return result
+  }
 }
 
 export { ResultsRepository }
