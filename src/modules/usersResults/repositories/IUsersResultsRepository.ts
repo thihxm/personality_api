@@ -6,6 +6,7 @@ interface IUsersResultsRepository {
   findByResult(result_id: string): Promise<UserResult[]>
   findByUserResult(user_id: string, result_id: string): Promise<UserResult>
   create({
+    id,
     user_id,
     result_id,
     isSelected,

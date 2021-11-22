@@ -7,6 +7,7 @@ class UsersResultsRepositoryInMemory implements IUsersResultsRepository {
   usersResults: UserResult[] = []
 
   async create({
+    id,
     user_id,
     result_id,
     isPrivate,
@@ -15,6 +16,7 @@ class UsersResultsRepositoryInMemory implements IUsersResultsRepository {
     const userResult = new UserResult()
 
     Object.assign(userResult, {
+      id,
       user_id,
       result_id,
       isPrivate,

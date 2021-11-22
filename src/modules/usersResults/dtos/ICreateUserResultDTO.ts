@@ -1,4 +1,5 @@
 interface ICreateUserResultDTO {
+  id?: string
   user_id: string
   result_id: string
   isSelected?: boolean

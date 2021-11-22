@@ -13,12 +13,14 @@ class UsersResultsRepository implements IUsersResultsRepository {
   }
 
   async create({
+    id,
     user_id,
     result_id,
     isPrivate,
     isSelected,
   }: ICreateUserResultDTO): Promise<UserResult> {
     const userResult = this.repository.create({
+      id,
       user_id,
       result_id,
       isPrivate,
