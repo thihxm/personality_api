@@ -1,4 +1,5 @@
 import { ICreateQuestionDTO } from '@modules/quizzes/dtos/ICreateQuestionDTO'
+import { IListQuestionsDTO } from '@modules/quizzes/dtos/IListQuestionsDTO'
 import { Question } from '@modules/quizzes/infra/typeorm/entities/Question'
 
 import { IQuestionsRepository } from '../IQuestionsRepository'
@@ -23,8 +24,14 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
     return this.questions.find((question) => question.id === id)
   }
 
-  async findByQuiz(quiz_id: string): Promise<Question[]> {
-    return this.questions.filter((question) => question.quiz_id === quiz_id)
+  async findByQuiz(quiz_id: string): Promise<IListQuestionsDTO> {
+    const questions = this.questions.filter(
+      (question) => question.quiz_id === quiz_id
+    )
+    return {
+      questions,
+      count: questions.length,
+    }
   }
 }
 
