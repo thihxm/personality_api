@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm'
 
 import { ICreateAnswerDTO } from '@modules/quizzes/dtos/ICreateAnswerDTO'
+import { IListAnswersDTO } from '@modules/quizzes/dtos/IListAnswersDTO'
 import { IAnswersRepository } from '@modules/quizzes/repositories/IAnswersRepository'
 
 import { Answer } from '../entities/Answer'
@@ -35,9 +36,12 @@ class AnswersRepository implements IAnswersRepository {
     return answer
   }
 
-  async findByQuestion(question_id: string): Promise<Answer[]> {
-    const answers = await this.repository.find({ question_id })
-    return answers
+  async findByQuestion(question_id: string): Promise<IListAnswersDTO> {
+    const [answers, count] = await this.repository.findAndCount({ question_id })
+    return {
+      answers,
+      count,
+    }
   }
 }
 
