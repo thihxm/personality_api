@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm'
 
 import { ICreateQuestionDTO } from '@modules/quizzes/dtos/ICreateQuestionDTO'
+import { IListQuestionsDTO } from '@modules/quizzes/dtos/IListQuestionsDTO'
 import { IQuestionsRepository } from '@modules/quizzes/repositories/IQuestionsRepository'
 
 import { Question } from '../entities/Question'
@@ -27,9 +28,10 @@ class QuestionsRepository implements IQuestionsRepository {
     const question = await this.repository.findOne({ id })
     return question
   }
-  async findByQuiz(quiz_id: string): Promise<Question[]> {
-    const question = await this.repository.find({ quiz_id })
-    return question
+
+  async findByQuiz(quiz_id: string): Promise<IListQuestionsDTO> {
+    const [questions, count] = await this.repository.findAndCount({ quiz_id })
+    return { questions, count }
   }
 }
 
