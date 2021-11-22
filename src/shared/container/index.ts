@@ -14,6 +14,8 @@ import { IBadgesRepository } from '@modules/quizzes/repositories/IBadgesReposito
 import { IQuestionsRepository } from '@modules/quizzes/repositories/IQuestionsRepository'
 import { IQuizzesRepository } from '@modules/quizzes/repositories/IQuizzesRepository'
 import { IResultsRepository } from '@modules/quizzes/repositories/IResultsRepository'
+import { UsersResultsRepository } from '@modules/usersResults/infra/typeorm/repositories/UsersResultsRepository'
+import { IUsersResultsRepository } from '@modules/usersResults/repositories/IUsersResultsRepository'
 
 container.registerSingleton<IQuizzesRepository>(
   'QuizzesRepository',
@@ -43,4 +45,9 @@ container.registerSingleton<IResultsRepository>(
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository
+)
+
+container.registerSingleton<IUsersResultsRepository>(
+  'UsersResultsRepository',
+  UsersResultsRepository
 )

@@ -7,6 +7,7 @@ import { questionsRoutes } from './questions.routes'
 import { quizzesRoutes } from './quizzes.routes'
 import { resultsRoutes } from './results.routes'
 import { usersRoutes } from './users.routes'
+import { usersResultsRoutes } from './usersResults.routes'
 
 const router = Router()
 
@@ -16,6 +17,7 @@ router.use('/questions', questionsRoutes)
 router.use('/answers', answersRoutes)
 router.use('/badges', badgesRoutes)
 router.use('/results', resultsRoutes)
+router.use('/usersResults', usersResultsRoutes)
 router.use(authenticateRoutes)
 
 export { router }
