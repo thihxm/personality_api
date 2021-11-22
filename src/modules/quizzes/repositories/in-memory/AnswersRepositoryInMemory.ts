@@ -1,4 +1,5 @@
 import { ICreateAnswerDTO } from '@modules/quizzes/dtos/ICreateAnswerDTO'
+import { IListAnswersDTO } from '@modules/quizzes/dtos/IListAnswersDTO'
 import { Answer } from '@modules/quizzes/infra/typeorm/entities/Answer'
 
 import { IAnswersRepository } from '../IAnswersRepository'
@@ -30,8 +31,17 @@ class AnswersRepositoryInMemory implements IAnswersRepository {
     return this.answers.find((answer) => answer.id === id)
   }
 
-  async findByQuestion(question_id: string): Promise<Answer[]> {
-    return this.answers.filter((answer) => answer.question_id === question_id)
+  async findByQuestion(question_id: string): Promise<IListAnswersDTO> {
+    const answers = this.answers.filter(
+      (answer) => answer.question_id === question_id
+    )
+
+    const count = answers.length
+
+    return {
+      answers,
+      count,
+    }
   }
 }
 

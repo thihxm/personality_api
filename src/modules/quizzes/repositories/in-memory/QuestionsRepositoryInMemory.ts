@@ -33,6 +33,10 @@ class QuestionsRepositoryInMemory implements IQuestionsRepository {
       count: questions.length,
     }
   }
+
+  async findByQuizWithAnswers(quiz_id: string): Promise<IListQuestionsDTO> {
+    return this.findByQuiz(quiz_id)
+  }
 }
 
 export { QuestionsRepositoryInMemory }
