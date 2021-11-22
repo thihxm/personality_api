@@ -18,7 +18,10 @@ class ListQuizzesAndQuestionsUseCase {
   ) {}
 
   async execute({ take, skip }: IRequest): Promise<IListQuizzesDTO> {
-    const quizzes = await this.quizzesRepository.listDescending(take, skip)
+    const quizzes = await this.quizzesRepository.listDescendingWithQuestions(
+      take,
+      skip
+    )
 
     return quizzes
   }
