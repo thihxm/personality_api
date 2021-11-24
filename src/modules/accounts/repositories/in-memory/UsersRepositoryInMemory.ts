@@ -11,7 +11,7 @@ class UsersRepositoryInMemory implements IUsersRepository {
     email,
     name,
     baseAvatar,
-  }: ICreateUserDTO): Promise<void> {
+  }: ICreateUserDTO): Promise<User> {
     const user = new User()
 
     Object.assign(user, {
@@ -22,6 +22,8 @@ class UsersRepositoryInMemory implements IUsersRepository {
     })
 
     this.users.push(user)
+
+    return user
   }
 
   async findByEmail(email: string): Promise<User> {

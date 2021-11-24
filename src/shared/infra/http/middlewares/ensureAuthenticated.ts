@@ -22,7 +22,10 @@ export async function ensureAuthenticated(
   const [, token] = authHeader.split(' ')
 
   try {
-    const { sub: user_id } = verify(token, 'supertokenseguro') as IPayload
+    const { sub: user_id } = verify(
+      token,
+      `${process.env.AUTH_SECRET}`
+    ) as IPayload
 
     const usersRepository = new UsersRepository()
 
