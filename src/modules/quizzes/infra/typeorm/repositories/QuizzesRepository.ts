@@ -18,6 +18,7 @@ class QuizzesRepository implements IQuizzesRepository {
     subtitle,
     about,
     color,
+    image,
     estimatedTimeInMinutes,
   }: ICreateQuizDTO): Promise<Quiz> {
     const quiz = this.repository.create({
@@ -25,6 +26,7 @@ class QuizzesRepository implements IQuizzesRepository {
       subtitle,
       about,
       color,
+      image,
       estimatedTimeInMinutes,
     })
 

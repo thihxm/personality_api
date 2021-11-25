@@ -9,6 +9,7 @@ interface IRequest {
   subtitle: string
   about: string
   color: string
+  image?: string
   estimatedTimeInMinutes: number
 }
 
@@ -24,6 +25,7 @@ class CreateQuizUseCase {
     subtitle,
     about,
     color,
+    image,
     estimatedTimeInMinutes,
   }: IRequest): Promise<Quiz> {
     const colorRegEx = /^([0-9A-F]{3}){1,2}$/i
@@ -49,6 +51,7 @@ class CreateQuizUseCase {
       subtitle,
       about,
       color,
+      image,
       estimatedTimeInMinutes,
     })
 

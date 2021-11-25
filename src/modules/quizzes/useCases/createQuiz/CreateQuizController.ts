@@ -5,7 +5,8 @@ import { CreateQuizUseCase } from './CreateQuizUseCase'
 
 class CreateQuizController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { title, subtitle, about, color, estimatedTimeInMinutes } = req.body
+    const { title, subtitle, about, color, image, estimatedTimeInMinutes } =
+      req.body
 
     const createQuizUseCase = container.resolve(CreateQuizUseCase)
 
@@ -14,6 +15,7 @@ class CreateQuizController {
       subtitle,
       about,
       color,
+      image,
       estimatedTimeInMinutes,
     })
 

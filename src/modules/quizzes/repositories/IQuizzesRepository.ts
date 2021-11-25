@@ -16,6 +16,7 @@ interface IQuizzesRepository {
     subtitle,
     about,
     color,
+    image,
     estimatedTimeInMinutes,
   }: ICreateQuizDTO): Promise<Quiz>
 }

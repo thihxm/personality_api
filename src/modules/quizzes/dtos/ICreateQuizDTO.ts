@@ -3,6 +3,7 @@ interface ICreateQuizDTO {
   subtitle: string
   about: string
   color: string
+  image?: string
   estimatedTimeInMinutes: number
 }
 

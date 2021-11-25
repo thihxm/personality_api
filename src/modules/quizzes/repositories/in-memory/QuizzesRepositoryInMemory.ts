@@ -12,6 +12,7 @@ class QuizzesRepositoryInMemory implements IQuizzesRepository {
     subtitle,
     about,
     color,
+    image,
     estimatedTimeInMinutes,
   }: ICreateQuizDTO): Promise<Quiz> {
     const quiz = new Quiz()
@@ -21,6 +22,7 @@ class QuizzesRepositoryInMemory implements IQuizzesRepository {
       subtitle,
       about,
       color,
+      image,
       estimatedTimeInMinutes,
     })
 

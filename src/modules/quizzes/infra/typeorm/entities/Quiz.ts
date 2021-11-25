@@ -28,6 +28,9 @@ class Quiz {
   color: string
 
   @Column()
+  image: string
+
+  @Column()
   estimatedTimeInMinutes: number
 
   @OneToMany(() => Question, (question) => question.quiz)
