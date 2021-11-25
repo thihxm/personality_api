@@ -6,7 +6,7 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { AppError } from '@shared/errors/AppError'
 
 interface IRequest {
-  code: string
+  id_token: string
   name: string
   email: string
 }
@@ -28,27 +28,18 @@ class AuthenticateUserUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({ code, name, email }: IRequest): Promise<IReponse> {
-    const clientSecret = await appleSignIn.createClientSecret({})
-
-    const { id_token: apple_id } = await appleSignIn.getAuthorizationToken(
-      clientSecret,
-      code,
-      {}
-    )
-    const { email: appleEmail } = await appleSignIn.verifyIdToken(apple_id, {})
-
-    if (!appleEmail) {
+  async execute({ id_token, name, email }: IRequest): Promise<IReponse> {
+    if (!email) {
       throw new AppError('Unable to authenticate user without email')
     }
 
-    let user = await this.usersRepository.findByAppleId(apple_id)
+    let user = await this.usersRepository.findByAppleId(id_token)
 
     if (!user) {
       // Should register new user
       user = await this.usersRepository.create({
-        email: email || appleEmail,
-        apple_id,
+        email,
+        apple_id: id_token,
         name,
       })
     }
@@ -58,6 +49,7 @@ class AuthenticateUserUseCase {
       user.email = email
       await this.usersRepository.create(user)
     }
+
     const secret = `${process.env.AUTH_SECRET}`
     const token = sign(
       {
