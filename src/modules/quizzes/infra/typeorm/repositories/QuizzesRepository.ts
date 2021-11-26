@@ -69,7 +69,7 @@ class QuizzesRepository implements IQuizzesRepository {
       order: { title: 'DESC' },
       take: takeAmount,
       skip: skipAmount,
-      relations: ['questions'],
+      relations: ['questions', 'results'],
     })
 
     return { quizzes, count }

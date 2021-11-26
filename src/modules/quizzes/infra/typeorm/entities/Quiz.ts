@@ -9,6 +9,7 @@ import {
 import { v4 as uuidV4 } from 'uuid'
 
 import { Question } from './Question'
+import { Result } from './Result'
 
 @Entity('quizzes')
 class Quiz {
@@ -35,6 +36,9 @@ class Quiz {
 
   @OneToMany(() => Question, (question) => question.quiz)
   questions: Question[]
+
+  @OneToMany(() => Result, (result) => result.quiz)
+  results: Result[]
 
   @CreateDateColumn()
   created_at: Date
