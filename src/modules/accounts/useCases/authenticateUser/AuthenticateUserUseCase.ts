@@ -1,7 +1,6 @@
 import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 
-import appleSignIn from '@config/appleSignIn'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 import { AppError } from '@shared/errors/AppError'
 
