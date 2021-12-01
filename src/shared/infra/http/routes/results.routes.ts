@@ -10,6 +10,6 @@ const findResultController = new FindResultController()
 
 resultsRoutes.post('/', createResultController.handle)
 resultsRoutes.get('/:code', findResultController.handle)
-resultsRoutes.get('/quizz/:quiz_id', findResultController.handle)
+resultsRoutes.get('/quiz/:quiz_id', findResultController.handle)
 
 export { resultsRoutes }
