@@ -14,6 +14,7 @@ class QuizzesRepository implements IQuizzesRepository {
   }
 
   async create({
+    id,
     title,
     subtitle,
     about,
@@ -22,6 +23,7 @@ class QuizzesRepository implements IQuizzesRepository {
     estimatedTimeInMinutes,
   }: ICreateQuizDTO): Promise<Quiz> {
     const quiz = this.repository.create({
+      id,
       title,
       subtitle,
       about,

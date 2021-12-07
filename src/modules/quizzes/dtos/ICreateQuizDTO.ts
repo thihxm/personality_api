@@ -1,4 +1,5 @@
 interface ICreateQuizDTO {
+  id: string
   title: string
   subtitle: string
   about: string

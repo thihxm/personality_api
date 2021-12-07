@@ -12,6 +12,7 @@ interface IQuizzesRepository {
     skip?: number
   ): Promise<IListQuizzesDTO>
   create({
+    id,
     title,
     subtitle,
     about,
