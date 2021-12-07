@@ -5,7 +5,7 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { AppError } from '@shared/errors/AppError'
 
 interface IRequest {
-  id_token: string
+  apple_id: string
   name: string
   email: string
 }
@@ -27,18 +27,18 @@ class AuthenticateUserUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({ id_token, name, email }: IRequest): Promise<IReponse> {
+  async execute({ apple_id, name, email }: IRequest): Promise<IReponse> {
     if (!email) {
       throw new AppError('Unable to authenticate user without email')
     }
 
-    let user = await this.usersRepository.findByAppleId(id_token)
+    let user = await this.usersRepository.findByAppleId(apple_id)
 
     if (!user) {
       // Should register new user
       user = await this.usersRepository.create({
         email,
-        apple_id: id_token,
+        apple_id,
         name,
       })
     }
