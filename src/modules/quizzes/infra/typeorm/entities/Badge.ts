@@ -1,7 +1,9 @@
+import { Expose } from 'class-transformer'
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -29,6 +31,11 @@ class Badge {
 
   @UpdateDateColumn()
   updated_at: Date
+
+  @Expose({ name: 'image_url' })
+  image_url(): string {
+    return `${process.env.APP_API_URL}/badge/${this.image}`
+  }
 
   constructor() {
     if (!this.id) {

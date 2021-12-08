@@ -11,6 +11,7 @@ class ResultsRepositoryInMemory implements IResultsRepository {
     code,
     about,
     label,
+    color,
     badge_id,
     quiz_id,
   }: ICreateResultDTO): Promise<Result> {
@@ -21,6 +22,7 @@ class ResultsRepositoryInMemory implements IResultsRepository {
       code,
       about,
       label,
+      color,
       badge_id,
       quiz_id,
     })

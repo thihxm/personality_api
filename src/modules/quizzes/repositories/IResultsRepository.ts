@@ -10,6 +10,7 @@ interface IResultsRepository {
     code,
     about,
     label,
+    color,
     badge_id,
     quiz_id,
   }: ICreateResultDTO): Promise<Result>

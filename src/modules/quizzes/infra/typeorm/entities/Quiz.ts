@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer'
 import {
   Column,
   CreateDateColumn,
@@ -45,6 +46,11 @@ class Quiz {
 
   @UpdateDateColumn()
   updated_at: Date
+
+  @Expose({ name: 'image_url' })
+  image_url(): string {
+    return `${process.env.APP_API_URL}/quiz/${this.image}`
+  }
 
   constructor() {
     if (!this.id) {

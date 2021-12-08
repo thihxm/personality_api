@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe'
 
-import { IListQuizzesDTO } from '@modules/quizzes/dtos/IListQuizzesDTO'
+import { IListQuizzesResponseDTO } from '@modules/quizzes/dtos/IListQuizzesResponseDTO'
+import { QuizMap } from '@modules/quizzes/mapper/QuizMap'
 import { IQuizzesRepository } from '@modules/quizzes/repositories/IQuizzesRepository'
 
 interface IRequest {
@@ -15,10 +16,19 @@ class ListQuizzesUseCase {
     private quizzesRepository: IQuizzesRepository
   ) {}
 
-  async execute({ take, skip }: IRequest): Promise<IListQuizzesDTO> {
-    const quizzes = await this.quizzesRepository.listDescending(take, skip)
+  async execute({ take, skip }: IRequest): Promise<IListQuizzesResponseDTO> {
+    const { quizzes, count } = await this.quizzesRepository.listDescending(
+      take,
+      skip
+    )
+    const mappedQuizzes = quizzes.map((quiz) => {
+      return QuizMap.toDTO(quiz)
+    })
 
-    return quizzes
+    return {
+      quizzes: mappedQuizzes,
+      count,
+    }
   }
 }
 

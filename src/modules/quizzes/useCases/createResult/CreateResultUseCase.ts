@@ -11,6 +11,7 @@ interface IRequest {
   code: string
   about: string
   label: string
+  color: string
   badge_id: string
   quiz_id: string
 }
@@ -30,6 +31,7 @@ class CreateResultUseCase {
     code,
     about,
     label,
+    color,
     badge_id,
     quiz_id,
   }: IRequest): Promise<Result> {
@@ -51,7 +53,7 @@ class CreateResultUseCase {
       throw new AppError('Badge does not exist')
     }
 
-    const quizExists = await this.quizzesRepository.findById(badge_id)
+    const quizExists = await this.quizzesRepository.findById(quiz_id)
 
     if (!quizExists) {
       throw new AppError('Quiz does not exist')
@@ -61,6 +63,7 @@ class CreateResultUseCase {
       code,
       about,
       label,
+      color,
       badge_id,
       quiz_id,
     })
