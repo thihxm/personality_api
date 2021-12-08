@@ -27,7 +27,10 @@ class Result {
   @Column()
   label: string
 
-  @OneToOne(() => Badge)
+  @Column()
+  color: string
+
+  @OneToOne(() => Badge, (badge) => badge.result)
   @JoinColumn({ name: 'badge_id' })
   badge: Badge
 

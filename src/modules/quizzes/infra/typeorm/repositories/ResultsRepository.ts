@@ -17,6 +17,7 @@ class ResultsRepository implements IResultsRepository {
     code,
     about,
     label,
+    color,
     badge_id,
     quiz_id,
   }: ICreateResultDTO): Promise<Result> {
@@ -25,6 +26,7 @@ class ResultsRepository implements IResultsRepository {
       code,
       about,
       label,
+      color,
       badge_id,
       quiz_id,
     })
@@ -40,7 +42,10 @@ class ResultsRepository implements IResultsRepository {
   }
 
   async findByQuiz(quiz_id: string): Promise<Result[]> {
-    const results = await this.repository.find({ quiz_id })
+    const results = await this.repository.find({
+      where: { quiz_id },
+      relations: ['badge'],
+    })
     return results
   }
 

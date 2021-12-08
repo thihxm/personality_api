@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 import { validate as validateUUID } from 'uuid'
 
-import { IListBadgesDTO } from '@modules/quizzes/dtos/IListBadgesDTO'
+import { IListBadgesResponseDTO } from '@modules/quizzes/dtos/IListBadgesResponseDTO'
+import { BadgeMap } from '@modules/quizzes/mapper/BadgeMap'
 import { IBadgesRepository } from '@modules/quizzes/repositories/IBadgesRepository'
 import { IResultsRepository } from '@modules/quizzes/repositories/IResultsRepository'
 import { AppError } from '@shared/errors/AppError'
@@ -19,7 +20,7 @@ class ListBadgesUseCase {
     private resultsRepository: IResultsRepository
   ) {}
 
-  async execute({ result_id }: IRequest): Promise<IListBadgesDTO> {
+  async execute({ result_id }: IRequest): Promise<IListBadgesResponseDTO> {
     const isValidUUID = validateUUID(result_id)
 
     if (!isValidUUID) {
@@ -32,9 +33,19 @@ class ListBadgesUseCase {
       throw new AppError('Result does not exist')
     }
 
-    const badgesAndCount = await this.badgesRepository.findByResult(result_id)
+    const { badges, count } = await this.badgesRepository.findByResult(
+      result_id
+    )
+    console.log(badges)
 
-    return badgesAndCount
+    const mappedBadges = badges.map((badge) => {
+      return BadgeMap.toDTO(badge)
+    })
+
+    return {
+      badges: mappedBadges,
+      count,
+    }
   }
 }
 

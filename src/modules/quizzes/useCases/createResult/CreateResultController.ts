@@ -5,7 +5,7 @@ import { CreateResultUseCase } from './CreateResultUseCase'
 
 class CreateResultController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { code, about, label, badge_id, quiz_id } = req.body
+    const { code, about, label, color, badge_id, quiz_id } = req.body
 
     const createResultUseCase = container.resolve(CreateResultUseCase)
 
@@ -13,6 +13,7 @@ class CreateResultController {
       code,
       about,
       label,
+      color,
       badge_id,
       quiz_id,
     })
