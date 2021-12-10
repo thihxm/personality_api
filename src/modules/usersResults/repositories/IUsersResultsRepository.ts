@@ -1,12 +1,8 @@
 import { ICreateUserResultDTO } from '../dtos/ICreateUserResultDTO'
-import { IListUserResultsDTO } from '../dtos/IListUserResultsDTO'
 import { UserResult } from '../infra/typeorm/entities/UserResult'
 
 interface IUsersResultsRepository {
-  findByUserResult(
-    user_id?: string,
-    result_id?: string
-  ): Promise<IListUserResultsDTO>
+  findByUserResult(user_id?: string, result_id?: string): Promise<UserResult[]>
   create({
     id,
     user_id,

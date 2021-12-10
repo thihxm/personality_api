@@ -3,7 +3,7 @@ import { validate as validateUUID } from 'uuid'
 
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 import { IResultsRepository } from '@modules/quizzes/repositories/IResultsRepository'
-import { IListUserResultsDTO } from '@modules/usersResults/dtos/IListUserResultsDTO'
+import { UserResult } from '@modules/usersResults/infra/typeorm/entities/UserResult'
 import { IUsersResultsRepository } from '@modules/usersResults/repositories/IUsersResultsRepository'
 import { AppError } from '@shared/errors/AppError'
 
@@ -23,10 +23,7 @@ class ListUserResultsUseCase {
     private resultsRepository: IResultsRepository
   ) {}
 
-  async execute({
-    user_id,
-    result_id,
-  }: IRequest): Promise<IListUserResultsDTO> {
+  async execute({ user_id, result_id }: IRequest): Promise<UserResult[]> {
     if (user_id) {
       const isUserValidUUID = validateUUID(user_id)
 
@@ -55,12 +52,12 @@ class ListUserResultsUseCase {
       }
     }
 
-    const usersAndCount = await this.usersResultsRepository.findByUserResult(
+    const userResults = await this.usersResultsRepository.findByUserResult(
       user_id,
       result_id
     )
 
-    return usersAndCount
+    return userResults
   }
 }
 
