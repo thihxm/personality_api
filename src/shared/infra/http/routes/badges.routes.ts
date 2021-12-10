@@ -14,7 +14,13 @@ const listBadgesController = new ListBadgesController()
 
 badgesRoutes.post(
   '/',
-  uploadImage.single('badge'),
+  uploadImage.fields([
+    { name: 'badge_image', maxCount: 1 },
+    { name: 'profileImage_flor', maxCount: 1 },
+    { name: 'profileImage_diab', maxCount: 1 },
+    { name: 'profileImage_cora', maxCount: 1 },
+    { name: 'profileImage_estr', maxCount: 1 },
+  ]),
   createBadgeController.handle
 )
 

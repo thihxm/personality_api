@@ -3,7 +3,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -23,6 +22,18 @@ class Badge {
   @Column()
   label: string
 
+  @Column()
+  profileImage_flor: string
+
+  @Column()
+  profileImage_diab: string
+
+  @Column()
+  profileImage_cora: string
+
+  @Column()
+  profileImage_estr: string
+
   @OneToOne(() => Result, (result) => result.badge)
   result: Result
 
@@ -35,6 +46,16 @@ class Badge {
   @Expose({ name: 'image_url' })
   image_url(): string {
     return `${process.env.APP_API_URL}/badge/${this.image}`
+  }
+
+  @Expose({ name: 'profileImage_estr_url' })
+  profileImagesURL(): { [Key: string]: string } {
+    return {
+      florzinha: `${process.env.APP_API_URL}/badge/${this.profileImage_flor}`,
+      diabinho: `${process.env.APP_API_URL}/badge/${this.profileImage_diab}`,
+      estrelinha: `${process.env.APP_API_URL}/badge/${this.profileImage_estr}`,
+      coracaozinho: `${process.env.APP_API_URL}/badge/${this.profileImage_cora}`,
+    }
   }
 
   constructor() {

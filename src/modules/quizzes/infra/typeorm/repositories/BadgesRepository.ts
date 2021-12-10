@@ -1,7 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 
 import { ICreateBadgeDTO } from '@modules/quizzes/dtos/ICreateBadgeDTO'
-import { IListBadgesDTO } from '@modules/quizzes/dtos/IListBadgesDTO'
 import { IBadgesRepository } from '@modules/quizzes/repositories/IBadgesRepository'
 
 import { Badge } from '../entities/Badge'
@@ -13,10 +12,22 @@ class BadgesRepository implements IBadgesRepository {
     this.repository = getRepository(Badge)
   }
 
-  async create({ id, image, label }: ICreateBadgeDTO): Promise<Badge> {
+  async create({
+    id,
+    image,
+    label,
+    profileImage_cora,
+    profileImage_diab,
+    profileImage_estr,
+    profileImage_flor,
+  }: ICreateBadgeDTO): Promise<Badge> {
     const badge = this.repository.create({
       id,
       image,
+      profileImage_cora,
+      profileImage_diab,
+      profileImage_estr,
+      profileImage_flor,
       label,
     })
 
@@ -30,17 +41,15 @@ class BadgesRepository implements IBadgesRepository {
     return badge
   }
 
-  async findByResult(result_id: string): Promise<IListBadgesDTO> {
-    const [badges, count] = await this.repository.findAndCount({
+  async findByResult(result_id: string): Promise<Badge> {
+    const badge = await this.repository.findOne({
+      relations: ['result'],
       where: {
         result: { id: result_id },
       },
     })
 
-    return {
-      badges,
-      count,
-    }
+    return badge
   }
 }
 

@@ -5,7 +5,11 @@ import { IBadgesRepository } from '@modules/quizzes/repositories/IBadgesReposito
 
 interface IRequest {
   id?: string
-  image: string
+  badge_image: string
+  profileImage_flor: string
+  profileImage_diab: string
+  profileImage_cora: string
+  profileImage_estr: string
   label: string
 }
 
@@ -16,10 +20,22 @@ class CreateBadgeUseCase {
     private badgesRepository: IBadgesRepository
   ) {}
 
-  async execute({ id, image, label }: IRequest): Promise<Badge> {
+  async execute({
+    id,
+    badge_image,
+    profileImage_flor,
+    profileImage_diab,
+    profileImage_cora,
+    profileImage_estr,
+    label,
+  }: IRequest): Promise<Badge> {
     const badge = await this.badgesRepository.create({
       id,
-      image,
+      image: badge_image,
+      profileImage_flor,
+      profileImage_diab,
+      profileImage_cora,
+      profileImage_estr,
       label,
     })
 
