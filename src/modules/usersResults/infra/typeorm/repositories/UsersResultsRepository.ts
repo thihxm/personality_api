@@ -1,7 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 
 import { ICreateUserResultDTO } from '@modules/usersResults/dtos/ICreateUserResultDTO'
-import { IListUserResultsDTO } from '@modules/usersResults/dtos/IListUserResultsDTO'
 import { IUsersResultsRepository } from '@modules/usersResults/repositories/IUsersResultsRepository'
 
 import { UserResult } from '../entities/UserResult'
@@ -36,15 +35,18 @@ class UsersResultsRepository implements IUsersResultsRepository {
   async findByUserResult(
     user_id?: string,
     result_id?: string
-  ): Promise<IListUserResultsDTO> {
-    const [userResults, count] = await this.repository.findAndCount({
+  ): Promise<UserResult[]> {
+    const userResults = await this.repository.find({
       where: { user_id, result_id },
     })
 
-    return {
-      userResults,
-      count,
-    }
+    return userResults
+  }
+
+  async findById(id: string): Promise<UserResult> {
+    const userResult = await this.repository.findOne(id)
+
+    return userResult
   }
 }
 

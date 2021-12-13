@@ -10,14 +10,14 @@ class CreateUserResultController {
 
     const createUserResultUseCase = container.resolve(CreateUserResultUseCase)
 
-    const answer = await createUserResultUseCase.execute({
+    const userResult = await createUserResultUseCase.execute({
       user_id: id,
       result_id,
       isSelected,
       isPrivate,
     })
 
-    return res.status(201).json(answer)
+    return res.status(201).json(userResult)
   }
 }
 

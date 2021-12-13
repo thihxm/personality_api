@@ -1,5 +1,6 @@
 import { inject, injectable } from 'tsyringe'
 
+import { User } from '@modules/accounts/infra/typeorm/entities/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 
 interface IRequest {
@@ -15,7 +16,7 @@ class UpdateUserAvatarUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({ user_id, baseAvatar, name }: IRequest): Promise<void> {
+  async execute({ user_id, baseAvatar, name }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id)
 
     // if (user.baseAvatar) {
@@ -26,6 +27,7 @@ class UpdateUserAvatarUseCase {
     user.name = name
 
     await this.usersRepository.create(user)
+    return user
   }
 }
 

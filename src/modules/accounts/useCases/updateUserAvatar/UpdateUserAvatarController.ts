@@ -11,9 +11,13 @@ class UpdateUserAvatarController {
 
     const updateUserAvatarUseCase = container.resolve(UpdateUserAvatarUseCase)
 
-    await updateUserAvatarUseCase.execute({ user_id: id, baseAvatar, name })
+    const user = await updateUserAvatarUseCase.execute({
+      user_id: id,
+      baseAvatar,
+      name,
+    })
 
-    return res.status(204).send()
+    return res.status(204).json(user)
   }
 }
 

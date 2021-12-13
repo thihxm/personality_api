@@ -3,6 +3,7 @@ import { UserResult } from '../infra/typeorm/entities/UserResult'
 
 interface IUsersResultsRepository {
   findByUserResult(user_id?: string, result_id?: string): Promise<UserResult[]>
+  findById(id: string): Promise<UserResult>
   create({
     id,
     user_id,
