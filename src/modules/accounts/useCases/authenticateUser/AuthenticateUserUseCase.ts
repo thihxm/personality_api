@@ -57,7 +57,7 @@ class AuthenticateUserUseCase {
       secret,
       {
         subject: user.id,
-        expiresIn: '30d',
+        expiresIn: '120d',
       }
     )
 

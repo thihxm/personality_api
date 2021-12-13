@@ -9,12 +9,12 @@ class ListUserResultsController {
 
     const listUserResultsUseCase = container.resolve(ListUserResultsUseCase)
 
-    const questionsAndCount = await listUserResultsUseCase.execute({
+    const userResults = await listUserResultsUseCase.execute({
       user_id: user_id as string,
       result_id: result_id as string,
     })
 
-    return res.json(questionsAndCount)
+    return res.json(userResults)
   }
 }
 

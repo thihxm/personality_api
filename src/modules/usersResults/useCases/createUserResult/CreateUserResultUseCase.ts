@@ -55,6 +55,15 @@ class CreateUserResultUseCase {
       throw new AppError('Result does not exist')
     }
 
+    const quizAlreadyDone = await this.usersResultsRepository.findByQuiz(
+      user_id,
+      resultExists.quiz_id
+    )
+
+    if (quizAlreadyDone) {
+      throw new AppError('Quiz has already been completed')
+    }
+
     const userResult = await this.usersResultsRepository.create({
       user_id,
       result_id,

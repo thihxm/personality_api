@@ -1,11 +1,12 @@
 import { inject, injectable } from 'tsyringe'
 
+import { User } from '@modules/accounts/infra/typeorm/entities/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
-import { deleteFile } from '@utils/file'
 
 interface IRequest {
   user_id: string
-  avatar_file: string
+  baseAvatar: string
+  name: string
 }
 
 @injectable()
@@ -15,16 +16,18 @@ class UpdateUserAvatarUseCase {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute({ user_id, avatar_file }: IRequest): Promise<void> {
+  async execute({ user_id, baseAvatar, name }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id)
 
-    if (user.baseAvatar) {
-      await deleteFile(`./tmp/avatar/${user.baseAvatar}`)
-    }
+    // if (user.baseAvatar) {
+    //   await deleteFile(`./tmp/avatar/${user.baseAvatar}`)
+    // }
 
-    user.baseAvatar = avatar_file
+    user.baseAvatar = baseAvatar
+    user.name = name
 
     await this.usersRepository.create(user)
+    return user
   }
 }
 
