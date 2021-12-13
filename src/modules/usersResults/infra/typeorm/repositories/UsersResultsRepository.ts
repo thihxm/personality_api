@@ -44,7 +44,21 @@ class UsersResultsRepository implements IUsersResultsRepository {
   }
 
   async findById(id: string): Promise<UserResult> {
-    const userResult = await this.repository.findOne(id)
+    const userResult = await this.repository.findOne({ id })
+
+    return userResult
+  }
+
+  async findByQuiz(user_id: string, quiz_id: string): Promise<UserResult> {
+    const userResult = await this.repository.findOne({
+      relations: ['result'],
+      where: {
+        user_id,
+        result: {
+          quiz_id,
+        },
+      },
+    })
 
     return userResult
   }

@@ -47,6 +47,14 @@ class UsersResultsRepositoryInMemory implements IUsersResultsRepository {
 
     return userResult
   }
+
+  async findByQuiz(user_id: string, quiz_id: string): Promise<UserResult> {
+    const userResult = this.usersResults.find(
+      (usersResult) => usersResult.user_id === user_id
+    )
+
+    return userResult
+  }
 }
 
 export { UsersResultsRepositoryInMemory }
