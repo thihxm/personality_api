@@ -28,13 +28,9 @@ class UsersResultsRepositoryInMemory implements IUsersResultsRepository {
     return userResult
   }
 
-  async findByUserResult(
-    user_id: string,
-    result_id: string
-  ): Promise<UserResult[]> {
+  async findByUserResult(user_id: string): Promise<UserResult[]> {
     const userResults = this.usersResults.filter(
-      (usersResult) =>
-        usersResult.user_id === user_id && usersResult.result_id === result_id
+      (usersResult) => usersResult.user_id === user_id
     )
 
     return userResults
