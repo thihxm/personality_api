@@ -12,7 +12,7 @@ import { v4 as uuidV4 } from 'uuid'
 import { User } from '@modules/accounts/infra/typeorm/entities/User'
 import { Result } from '@modules/quizzes/infra/typeorm/entities/Result'
 
-@Entity('results')
+@Entity('usersResults')
 class UserResult {
   @PrimaryColumn()
   id: string
@@ -22,9 +22,6 @@ class UserResult {
 
   @Column()
   isPrivate: boolean
-
-  @Column()
-  label: string
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

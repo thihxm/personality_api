@@ -2,6 +2,8 @@ import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
 
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { UserResult } from '@modules/usersResults/infra/typeorm/entities/UserResult'
+import { IUsersResultsRepository } from '@modules/usersResults/repositories/IUsersResultsRepository'
 import { AppError } from '@shared/errors/AppError'
 
 interface IRequest {
@@ -16,6 +18,8 @@ interface IReponse {
     name: string
     email: string
     apple_id: string
+    baseAvatar: string
+    userResults: UserResult[]
   }
   token: string
 }
@@ -24,12 +28,14 @@ interface IReponse {
 class AuthenticateUserUseCase {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+    @inject('UsersResultsRepository')
+    private usersResultsRepository: IUsersResultsRepository
   ) {}
 
   async execute({ apple_id, name, email }: IRequest): Promise<IReponse> {
-    if (!email) {
-      throw new AppError('Unable to authenticate user without email')
+    if (!apple_id) {
+      throw new AppError('Unable to authenticate user without apple_id')
     }
 
     let user = await this.usersRepository.findByAppleId(apple_id)
@@ -61,12 +67,18 @@ class AuthenticateUserUseCase {
       }
     )
 
+    // const userResults = await this.usersResultsRepository.findByUserResult(
+    //   user.id
+    // )
+
     const tokenReturn: IReponse = {
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
         apple_id: user.apple_id,
+        baseAvatar: user.baseAvatar ?? 'diabinho',
+        userResults: [],
       },
       token,
     }

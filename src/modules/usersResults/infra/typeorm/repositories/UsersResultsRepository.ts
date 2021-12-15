@@ -32,12 +32,10 @@ class UsersResultsRepository implements IUsersResultsRepository {
     return userResult
   }
 
-  async findByUserResult(
-    user_id?: string,
-    result_id?: string
-  ): Promise<UserResult[]> {
+  async findByUserResult(user_id: string): Promise<UserResult[]> {
     const userResults = await this.repository.find({
-      where: { user_id, result_id },
+      relations: ['result', 'result.badge'],
+      where: { user_id },
     })
 
     return userResults
