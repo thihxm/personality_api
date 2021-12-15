@@ -34,6 +34,7 @@ class UsersResultsRepository implements IUsersResultsRepository {
 
   async findByUserResult(user_id: string): Promise<UserResult[]> {
     const userResults = await this.repository.find({
+      relations: ['result', 'result.badge'],
       where: { user_id },
     })
 

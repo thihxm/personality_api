@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe'
 import { validate as validateUUID } from 'uuid'
 
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { BadgeMap } from '@modules/quizzes/mapper/BadgeMap'
 import { UserResult } from '@modules/usersResults/infra/typeorm/entities/UserResult'
 import { IUsersResultsRepository } from '@modules/usersResults/repositories/IUsersResultsRepository'
 import { AppError } from '@shared/errors/AppError'
@@ -36,7 +37,15 @@ class ListUserResultsUseCase {
       user_id
     )
 
-    return userResults
+    const mappedUserResults = userResults.map((userResult) => {
+      const newUserResult = userResult
+      const { badge } = newUserResult.result
+
+      newUserResult.result.badge = BadgeMap.toDTO(badge)
+      return newUserResult
+    })
+
+    return mappedUserResults
   }
 }
 
