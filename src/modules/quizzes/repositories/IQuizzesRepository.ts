@@ -7,6 +7,7 @@ interface IQuizzesRepository {
   findByTitle(title: string): Promise<Quiz>
   findById(id: string): Promise<Quiz>
   listDescending(take?: number, skip?: number): Promise<IListQuizzesDTO>
+  listPopularDescending(take?: number): Promise<Quiz[]>
   listDescendingWithQuestions(
     take?: number,
     skip?: number

@@ -3,6 +3,7 @@ import multer from 'multer'
 
 import uploadConfig from '@config/upload'
 import { CreateQuizController } from '@modules/quizzes/useCases/createQuiz/CreateQuizController'
+import { ListPopularQuizzesController } from '@modules/quizzes/useCases/listPopularQuizzes/ListPopularQuizzesController'
 import { ListQuizzesController } from '@modules/quizzes/useCases/listQuizzes/ListQuizzesController'
 import { ListQuizzesAndQuestionsController } from '@modules/quizzes/useCases/listQuizzesAndQuestions/ListQuizzesAndQuestionsController'
 import { UpdateQuizImageController } from '@modules/quizzes/useCases/updateQuizImage/UpdateQuizImageController'
@@ -16,6 +17,7 @@ const listQuizzesController = new ListQuizzesController()
 const listQuizzesAndQuestionsController =
   new ListQuizzesAndQuestionsController()
 const updateQuizImageController = new UpdateQuizImageController()
+const listPopularQuizzesController = new ListPopularQuizzesController()
 
 quizzesRoutes.post(
   '/',
@@ -29,5 +31,6 @@ quizzesRoutes.patch(
   uploadImage.single('image'),
   updateQuizImageController.handle
 )
+quizzesRoutes.get('/popular', listPopularQuizzesController.handle)
 
 export { quizzesRoutes }

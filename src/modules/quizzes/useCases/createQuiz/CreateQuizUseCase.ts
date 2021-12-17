@@ -5,6 +5,7 @@ import { IQuizzesRepository } from '@modules/quizzes/repositories/IQuizzesReposi
 import { AppError } from '@shared/errors/AppError'
 
 interface IRequest {
+  id: string
   title: string
   subtitle: string
   about: string
@@ -28,7 +29,7 @@ class CreateQuizUseCase {
     image,
     estimatedTimeInMinutes,
   }: IRequest): Promise<Quiz> {
-    const colorRegEx = /^([0-9A-F]{3}){1,2}$/i
+    // const colorRegEx = /^([0-9A-F]{3}){1,2}$/i
 
     const quizAlreadyExists = await this.quizzesRepository.findByTitle(title)
 
@@ -36,11 +37,13 @@ class CreateQuizUseCase {
       throw new AppError('Quiz already exists')
     }
 
+    /*
     const isValidColor = colorRegEx.test(color)
 
     if (!isValidColor) {
       throw new AppError('Invalid color format')
     }
+     */
 
     if (estimatedTimeInMinutes < 1) {
       throw new AppError('Estimated time must be at least 1')

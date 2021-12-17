@@ -3,14 +3,17 @@ import { getRepository, Repository } from 'typeorm'
 import { ICreateQuizDTO } from '@modules/quizzes/dtos/ICreateQuizDTO'
 import { IListQuizzesDTO } from '@modules/quizzes/dtos/IListQuizzesDTO'
 import { IQuizzesRepository } from '@modules/quizzes/repositories/IQuizzesRepository'
+import { UserResult } from '@modules/usersResults/infra/typeorm/entities/UserResult'
 
 import { Quiz } from '../entities/Quiz'
 
 class QuizzesRepository implements IQuizzesRepository {
   private repository: Repository<Quiz>
+  private usersResultsRepository: Repository<UserResult>
 
   constructor() {
     this.repository = getRepository(Quiz)
+    this.usersResultsRepository = getRepository(UserResult)
   }
 
   async create({
@@ -75,6 +78,28 @@ class QuizzesRepository implements IQuizzesRepository {
     })
 
     return { quizzes, count }
+  }
+
+  async listPopularDescending(take?: number): Promise<Quiz[]> {
+    const takeAmount = take || 4
+
+    const quizzes = await this.repository
+      .createQueryBuilder('quiz')
+      .where((qb) => {
+        const subQuery = qb
+          .subQuery()
+          .from(UserResult, 'userResult')
+          .leftJoin('userResult.result', 'result')
+          .select('result.quiz_id', 'quiz_id')
+          .groupBy('result.quiz_id')
+          .orderBy('COUNT(result.quiz_id)', 'DESC')
+          .limit(takeAmount)
+          .getQuery()
+        return `quiz.id IN ${subQuery}`
+      })
+      .getMany()
+
+    return quizzes
   }
 }
 
